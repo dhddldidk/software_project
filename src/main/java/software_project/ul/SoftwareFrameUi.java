@@ -50,7 +50,8 @@ public class SoftwareFrameUi extends JFrame {
 		
 		
 		
-		SupplyingCompany panel = new SupplyingCompany();
+	//	SupplyingCompany panel = new SupplyingCompany();
+		StatusManagement panel = new StatusManagement();
 		contentPane.add(panel, BorderLayout.CENTER);
 	}
 

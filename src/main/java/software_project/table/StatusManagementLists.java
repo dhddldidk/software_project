@@ -56,7 +56,7 @@ public class StatusManagementLists extends JPanel {
 	}
 	public String[] getColumNames() {
 		
-		return new String[] {"고객번호", "상호명", "품목명","주문수량","결제수단","공급가격","판매금액","미수금","분류","공급회사명"};
+		return new String[] {"고객번호", "날짜","분류", "품목명","공급회사명","주문수량","결제수단","공급가격","판매가격","판매이윤"};
 	}
 	private void setAlignWidth() {
 		//셀의 너비와 정렬
