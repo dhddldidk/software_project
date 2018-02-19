@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import software_project.table.SupplyingCompanyLists;
 
 public class SupplyingCompany extends JPanel {
 	private JTextField tfSearchPC;
@@ -143,7 +144,7 @@ public class SupplyingCompany extends JPanel {
 		add(p3);
 		p3.setLayout(new BorderLayout(0, 0));
 		
-		JPanel pTable = new JPanel();
+		SupplyingCompanyLists pTable = new SupplyingCompanyLists();
 		p3.add(pTable, BorderLayout.CENTER);
 		
 		JPanel pPaging = new JPanel();

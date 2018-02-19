@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import software_project.findIdPw.FindIdPw;
 import software_project.panel.OrderSoftware;
 import software_project.panel.StatusManagement;
 import software_project.panel.SupplyingCompany;
@@ -35,7 +36,7 @@ public class SoftwareFrameUi extends JFrame {
 	}
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 810, 500);
+		setBounds(100, 100, 900, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

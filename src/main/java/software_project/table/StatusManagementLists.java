@@ -16,10 +16,10 @@ import javax.swing.table.TableColumnModel;
 
 
 
-public class SupplyingCompanyLists extends JPanel {
+public class StatusManagementLists extends JPanel {
 	protected JTable table;
 	
-	public SupplyingCompanyLists() {
+	public StatusManagementLists() {
 
 		initComponents();
 	}
@@ -56,7 +56,7 @@ public class SupplyingCompanyLists extends JPanel {
 	}
 	public String[] getColumNames() {
 		
-		return new String[] {"번호", "회사명", "주소","전화번호","담당자"};
+		return new String[] {"고객번호", "상호명", "품목명","주문수량","결제수단","공급가격","판매금액","미수금","분류","공급회사명"};
 	}
 	private void setAlignWidth() {
 		//셀의 너비와 정렬
