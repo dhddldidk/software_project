@@ -8,9 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import software_project.Status.StatusManagement;
+import software_project.Status.StatusSalesTeam;
 import software_project.findIdPw.FindIdPw;
 import software_project.panel.OrderSoftware;
-import software_project.panel.StatusManagement;
 import software_project.panel.SupplyingCompany;
 import software_project.panel.UpdateCustomerInfo;
 
@@ -45,13 +46,15 @@ public class SoftwareFrameUi extends JFrame {
 		JPanel p1 = new JPanel();
 		contentPane.add(p1, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("공급회사등록");
+	//	JLabel lblNewLabel = new JLabel("공급회사등록");
+		JLabel lblNewLabel = new JLabel("현황관리");
 		p1.add(lblNewLabel);
 		
 		
 		
-	//	SupplyingCompany panel = new SupplyingCompany();
-		StatusManagement panel = new StatusManagement();
+		SupplyingCompany panel = new SupplyingCompany();
+	//	StatusManagement panel = new StatusManagement();
+	//	StatusSalesTeam panel = new StatusSalesTeam();
 		contentPane.add(panel, BorderLayout.CENTER);
 	}
 
