@@ -1,24 +1,37 @@
-package software_project.panel;
+package software_project.Status;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
-import javax.swing.SwingConstants;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import software_project.table.StatusManagementLists;
 
-public class StatusManagement extends JPanel {
-	private JTextField textField;
+public class StatusManagement extends JPanel implements ActionListener {
+	private JTextField tfSearch;
 	private JButton btn1;
-	private JTextField textField_1;
-
-	/**
-	 * Create the panel.
-	 */
+	private String [] option1 = {"상호명","재밌는 게임방","좋은 게임방","친구게임방","충청남도교육청","대전광역시교육청","아산시스템"};
+	private String [] option2 = {"분류","게임","사무","그래픽"};
+	private String [] option3 = {"관리자","영업1팀","영업2팀","영업3팀","영업4팀","영업5팀"};
+	private JButton btnSearch;
+	
+	
 	public StatusManagement() {
 
 		initComponents();
@@ -28,67 +41,89 @@ public class StatusManagement extends JPanel {
 		setLayout(null);
 		
 		JPanel p1 = new JPanel();
-		p1.setBounds(5, 5, 883, 69);
+		p1.setBounds(5, 5, 883, 91);
 		add(p1);
 		p1.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(0, 6, 110, 21);
-		p1.add(comboBox);
+		JComboBox cmbOption1 = new JComboBox(option1);
+		cmbOption1.setBounds(0, 18, 137, 21);
+		p1.add(cmbOption1);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(122, 6, 110, 21);
-		p1.add(comboBox_1);
+		JComboBox cmbOption2 = new JComboBox(option2);
+		cmbOption2.setBounds(151, 18, 125, 21);
+		p1.add(cmbOption2);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(373, 6, 110, 21);
-		p1.add(comboBox_2);
+		JComboBox cmbOption3 = new JComboBox(option3);
+		cmbOption3.setBounds(288, 18, 137, 21);
+		p1.add(cmbOption3);
 		
-		textField = new JTextField();
-		textField.setBounds(637, 6, 172, 21);
-		p1.add(textField);
-		textField.setColumns(10);
+		//////////////////////////////////
+		JPanel pStartDate = new JPanel();
+		pStartDate.setBounds(425, 10, 230, 33);
+		p1.add(pStartDate);
 		
-		JButton btnNewButton = new JButton("검색");
-		btnNewButton.setBounds(811, 5, 60, 23);
-		p1.add(btnNewButton);
+		UtilDateModel model = new UtilDateModel();
+		Properties pro1 = new Properties();
+		pro1.put("text.today", "Today");
+		pro1.put("text.month", "Month");
+		pro1.put("text.year", "Year");
 		
-		JButton btnNewButton_1 = new JButton("거래명세서");
-		btnNewButton_1.setBounds(657, 37, 105, 23);
-		p1.add(btnNewButton_1);
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, pro1);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		SpringLayout springLayout = (SpringLayout) datePicker.getLayout();
+		springLayout.putConstraint(SpringLayout.NORTH, datePicker.getJFormattedTextField(), 0, SpringLayout.NORTH, datePicker);
+		pStartDate.add(datePicker);
 		
-		JButton btnNewButton_2 = new JButton("보고서");
-		btnNewButton_2.setBounds(766, 37, 105, 23);
-		p1.add(btnNewButton_2);
+		JPanel pEndDate = new JPanel();
+		pEndDate.setBounds(653, 10, 230, 33);
+		p1.add(pEndDate);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(505, 6, 110, 21);
-		p1.add(comboBox_3);
+		UtilDateModel model2 = new UtilDateModel();
+		Properties pro2 = new Properties();
+		pro2.put("text.today", "Today");
+		pro2.put("text.month", "Month");
+		pro2.put("text.year", "Year");
 		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setText("~");
-		textField_1.setColumns(10);
-		textField_1.setBounds(483, 6, 22, 21);
-		p1.add(textField_1);
+		JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, pro2);
+		JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+		SpringLayout springLayout2 = (SpringLayout) datePicker2.getLayout();
+		springLayout.putConstraint(SpringLayout.NORTH, datePicker2.getJFormattedTextField(), 0, SpringLayout.NORTH, datePicker2);
+		pEndDate.add(datePicker2);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(244, 6, 110, 21);
-		p1.add(comboBox_4);
+		
+		
+		
+		
+		tfSearch = new JTextField();
+		tfSearch.setBounds(0, 60, 425, 21);
+		p1.add(tfSearch);
+		tfSearch.setColumns(10);
+		
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		btnSearch.setBounds(440, 59, 60, 23);
+		p1.add(btnSearch);
+		
+		JButton btnReceipt = new JButton("거래명세서");
+		btnReceipt.setBounds(653, 59, 105, 23);
+		p1.add(btnReceipt);
+		
+		JButton btnReport = new JButton("보고서");
+		btnReport.setBounds(766, 59, 105, 23);
+		p1.add(btnReport);
 		
 		JPanel p2 = new JPanel();
-		p2.setBounds(5, 84, 883, 411);
+		p2.setBounds(5, 106, 883, 389);
 		add(p2);
-		p2.setLayout(null);
+		p2.setLayout(new BorderLayout(0, 0));
 		
 		StatusManagementLists pTable = new StatusManagementLists();
-		pTable.setBounds(5, 5, 866, 358);
-		p2.add(pTable);
-		pTable.setLayout(new BorderLayout(0, 0));
+		//pTable.setBounds(5, 5, 866, 358);
+		p2.add(pTable, BorderLayout.CENTER);
+		//pTable.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pPaging = new JPanel();
-		pPaging.setBounds(5, 373, 866, 33);
-		p2.add(pPaging);
+		p2.add(pPaging, BorderLayout.SOUTH);
 		pPaging.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btn1 = new JButton("<");
@@ -109,5 +144,32 @@ public class StatusManagement extends JPanel {
 		pPaging.add(btn5);
 
 	}
-
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnSearch) {
+			actionPerformedBtnSearch(arg0);
+		}
+	}
+	protected void actionPerformedBtnSearch(ActionEvent arg0) {
+	}
+}
+	class DateLabelFormatter extends AbstractFormatter {
+	 
+    private String datePattern = "yyyy-MM-dd";
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+     
+    @Override
+    public Object stringToValue(String text) throws ParseException {
+        return dateFormatter.parseObject(text);
+    }
+ 
+    @Override
+    public String valueToString(Object value) throws ParseException {
+        if (value != null) {
+            Calendar cal = (Calendar) value;
+            return dateFormatter.format(cal.getTime());
+        }
+         
+        return "";
+    }
+ 
 }
